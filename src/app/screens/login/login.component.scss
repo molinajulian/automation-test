@@ -1,0 +1,41 @@
+@import '~src/scss/colors';
+@import '~src/scss/variables';
+
+:host {
+  align-items: center;
+  background-color: $gray-light;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+
+  .login-box {
+    align-items: center;
+    background-color: $white;
+    box-shadow: $box-shadow;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+
+    &-title {
+      font-size: $title-font-size;
+      font-weight: bold;
+      line-height: $title-font-size;
+      margin-bottom: 40px;
+      text-align: center;
+      width: 100%;
+    }
+
+    &-form {
+      min-width: 300px;
+      width: 100%;
+
+      &-input {
+        margin-bottom: 10px;
+      }
+
+      &-submit {
+        margin-top: 20px;
+      }
+    }
+  }
+}
