@@ -1,0 +1,12 @@
+<nav class="nav-bar">
+  <ul class="nav-bar-menu">
+    <li class="nav-bar-item" *ngFor="let item of menuItems">
+      <a [routerLink]="[item.url]" [routerLinkActive]="'active'" class="nav-bar-link">{{ item.title }}</a>
+    </li>
+  </ul>
+  <ul class="nav-bar-account">
+    <li class="nav-bar-item">
+      <a class="nav-bar-link" (click)="onLogout()">Cerrar Sesión</a>
+    </li>
+  </ul>
+</nav>

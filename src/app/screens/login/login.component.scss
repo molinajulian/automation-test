@@ -3,7 +3,6 @@
 
 :host {
   align-items: center;
-  background-color: $gray-light;
   display: flex;
   height: 100vh;
   justify-content: center;
@@ -11,6 +10,7 @@
   .login-box {
     align-items: center;
     background-color: $white;
+    border-radius: 20px;
     box-shadow: $box-shadow;
     display: flex;
     flex-direction: column;

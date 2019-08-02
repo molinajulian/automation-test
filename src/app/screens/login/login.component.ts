@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { generateRandomString } from 'src/app/utils/string-random-generator';
 
 export const LOGIN_ERRORS = {
   username: {
@@ -24,7 +26,11 @@ export const LOGIN_ERRORS = {
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private localStorage: LocalStorageService
+  ) {
     this.formBuilder = new FormBuilder();
   }
 
@@ -50,7 +56,8 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      this.router.navigateByUrl('/coupons');
+      this.localStorage.setValue(this.localStorage.SESSION_TOKEN, generateRandomString(10));
+      this.router.navigateByUrl('/home');
     }
   }
 

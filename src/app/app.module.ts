@@ -8,6 +8,8 @@ import { LoginComponent } from './screens/login/login.component';
 import { InputComponent } from './components/input/input.component';
 import { FormSubmitDirective } from './directives/form-submit.directive';
 import { CouponsComponent } from './screens/coupons/coupons.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { HomeComponent } from './screens/home/home.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { CouponsComponent } from './screens/coupons/coupons.component';
     LoginComponent,
     InputComponent,
     FormSubmitDirective,
-    CouponsComponent
+    CouponsComponent,
+    NavBarComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
