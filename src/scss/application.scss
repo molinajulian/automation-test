@@ -1,6 +1,12 @@
 @import '~wolox-equalizer/equalizer';
 @import 'buttons';
+@import 'colors';
 
 * {
   font-family: 'Noto Sans TC', sans-serif;
+}
+
+html,
+body {
+  background-color: $gray-light;
 }

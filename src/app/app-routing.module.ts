@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './screens/login/login.component';
-import { CouponsComponent } from './screens/coupons/coupons.component';
+import { AuthGuard } from './guards/auth.guard';
+import { UnauthGuard } from './guards/unauth.guards';
+import { HomeComponent } from './screens/home/home.component';
 
 const routes: Routes = [
   {
-    path: 'coupons',
-    component: CouponsComponent
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [UnauthGuard]
   },
   {
     path: '',
