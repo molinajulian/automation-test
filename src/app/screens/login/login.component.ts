@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.compose([
         Validators.required,
-        Validators.pattern('[A-Za-z]*'),
+        Validators.pattern('[A-Za-z0-9]*'),
         Validators.maxLength(20),
         Validators.minLength(6)],
       )],

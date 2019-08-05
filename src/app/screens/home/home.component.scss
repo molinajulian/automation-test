@@ -1,0 +1,15 @@
+@import '~src/scss/colors';
+@import '~src/scss/variables';
+
+.home-content {
+  display: flex;
+  justify-content: center;
+  margin-top: $nav-bar-height;
+  padding-top: 50px;
+
+  .offers-table {
+    &-block-button {
+      padding: 5px 20px;
+    }
+  }
+}
