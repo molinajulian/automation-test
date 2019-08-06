@@ -15,4 +15,12 @@ export class AuthenticationService {
   isLogged(): boolean {
     return !!this.getToken();
   }
+
+  getUser() {
+    return this.getToken().username;
+  }
+
+  logout() {
+    this.localStorageService.removeValue(this.localStorageService.SESSION_TOKEN);
+  }
 }

@@ -6,8 +6,9 @@ import { Injectable } from '@angular/core';
 export class LocalStorageService {
   private tempStorage = {};
   SESSION_TOKEN = 'automationTestSessionToken';
+  FREE_COUPON = 'freeCouponToken';
 
-  getValue(key): string {
+  getValue(key) {
     const encodedKey = window.btoa(`@@AUTH:${key}`);
     let encodedValue;
     try {

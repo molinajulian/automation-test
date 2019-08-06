@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      this.localStorage.setValue(this.localStorage.SESSION_TOKEN, generateRandomString(10));
+      this.localStorage.setValue(this.localStorage.SESSION_TOKEN, this.loginForm.value);
       this.router.navigateByUrl('/home');
     }
   }
