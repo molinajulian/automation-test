@@ -8,7 +8,8 @@ import {
   OnDestroy,
   Optional,
   Host,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  HostListener
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subject, Observable, EMPTY, merge } from 'rxjs';
@@ -37,6 +38,8 @@ export class InputComponent implements OnInit, ControlValueAccessor, AfterViewIn
   @Input() type = TYPES.TEXT;
   @Input() errorMessage: string;
   @Input() id: string;
+  @Input() disabled: boolean;
+  @Input() showErrorsListener$: Observable<Event> = EMPTY;
   onChange: () => void;
   onTouch: () => void;
   value: string;
@@ -46,8 +49,13 @@ export class InputComponent implements OnInit, ControlValueAccessor, AfterViewIn
   isRequired = false;
   idError: string;
   private unsubscribe$: Subject<any> = new Subject();
+  private focusOut$: Subject<any> = new Subject();
   submit$: Observable<Event>;
   TYPES = TYPES;
+  @HostListener('focusout', ['$event'])
+  onFocusout(event) {
+    this.focusOut$.next(event);
+  }
 
   constructor(
     private inj: Injector,
@@ -66,6 +74,8 @@ export class InputComponent implements OnInit, ControlValueAccessor, AfterViewIn
   ngAfterViewInit() {
     merge(
       this.submit$,
+      this.focusOut$,
+      this.showErrorsListener$
     ).pipe(
       takeUntil(this.unsubscribe$)
     ).subscribe(() => {
@@ -99,6 +109,10 @@ export class InputComponent implements OnInit, ControlValueAccessor, AfterViewIn
 
   registerOnTouched(fn: any) {
     this.onTouch = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    console.log('Set Disabled', isDisabled);
   }
 
   ngOnDestroy() {

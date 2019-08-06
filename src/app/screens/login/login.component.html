@@ -1,5 +1,7 @@
 <div class="login-box">
-  <h1 class="login-box-title">Login</h1>
+  <div class="login-box-head">
+    <h1 class="login-box-title">Bienvenido</h1>
+  </div>
   <form class="login-box-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <app-input id="username" class="login-box-form-input" label="Usuario" formControlName="username"
       [errorMessage]="getErrorMessage('username')">

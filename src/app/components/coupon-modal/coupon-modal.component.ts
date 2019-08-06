@@ -5,11 +5,11 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { CouponsService } from 'src/app/services/coupons.service';
 
 @Component({
-  selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  selector: 'app-coupon-modal',
+  templateUrl: './coupon-modal.component.html',
+  styleUrls: ['./coupon-modal.component.scss']
 })
-export class ModalComponent implements OnInit {
+export class CouponModalComponent implements OnInit {
   opened = false;
   couponCode: string;
 

@@ -1,6 +1,8 @@
 @import '~src/scss/colors';
 @import '~src/scss/variables';
 
+$border-radius: 20px;
+
 :host {
   align-items: center;
   display: flex;
@@ -10,23 +12,31 @@
   .login-box {
     align-items: center;
     background-color: $white;
-    border-radius: 20px;
+    border-radius: $border-radius;
     box-shadow: $box-shadow;
     display: flex;
     flex-direction: column;
-    padding: 40px;
+
+    &-head {
+      background-color: $blue;
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
+      padding: 15px;
+      width: 100%;
+    }
 
     &-title {
+      color: $white;
       font-size: $title-font-size;
       font-weight: bold;
       line-height: $title-font-size;
-      margin-bottom: 40px;
       text-align: center;
       width: 100%;
     }
 
     &-form {
-      min-width: 300px;
+      min-width: 400px;
+      padding: 30px;
       width: 100%;
 
       &-input {

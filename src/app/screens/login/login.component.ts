@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { generateRandomString } from 'src/app/utils/string-random-generator';
 
 export const LOGIN_ERRORS = {
   username: {

@@ -1,0 +1,36 @@
+@import '~src/scss/variables';
+
+.profile {
+  display: flex;
+  justify-content: center;
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    margin-top: $nav-bar-height;
+    padding-top: 50px;
+
+    .profile-form {
+      background-color: $white;
+      padding: 40px 50px;
+      min-width: 1200px;
+
+      .profile-form-fields {
+        display: grid;
+        grid-gap: 20px 40px;
+        grid-template-columns: auto auto;
+        margin-bottom: 40px;
+      }
+
+      .profile-form-buttons {
+        display: flex;
+        justify-content: space-around;
+
+        .profile-button {
+          justify-self: center;
+          width: 220px;
+        }
+      }
+    }
+  }
+}
