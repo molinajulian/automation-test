@@ -1,5 +1,6 @@
 @import '~wolox-equalizer/equalizer';
 @import 'buttons';
+@import 'colors';
 @import 'variables';
 
 * {
@@ -72,4 +73,11 @@ body {
       padding: 10px 40px;
     }
   }
+}
+
+.app-title {
+  color: $blue;
+  font-size: 30px;
+  line-height: 30px;
+  margin-bottom: 20px;
 }

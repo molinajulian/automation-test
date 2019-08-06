@@ -10,6 +10,7 @@ import { FormSubmitDirective } from './directives/form-submit.directive';
 import { CouponsComponent } from './screens/coupons/coupons.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { HomeComponent } from './screens/home/home.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HomeComponent } from './screens/home/home.component';
     FormSubmitDirective,
     CouponsComponent,
     NavBarComponent,
-    HomeComponent
+    HomeComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

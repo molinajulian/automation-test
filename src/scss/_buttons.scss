@@ -32,3 +32,25 @@
     border-color: darken($green, 10%);
   }
 }
+
+.button.danger {
+  background-color: darken($red, 5%);
+  border-color: darken($red, 5%);
+  color: $white;
+
+  &:hover {
+    background-color: darken($red, 10%);
+    border-color: darken($red, 10%);
+  }
+
+  &:disabled {
+    background-color: darken($gray, 5%);
+    border-color: darken($gray, 5%);
+    color: $gray-light;
+  }
+
+  &:active {
+    background-color: darken($red, 15%);
+    border-color: darken($red, 15%);
+  }
+}

@@ -4,11 +4,17 @@ import { LoginComponent } from './screens/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UnauthGuard } from './guards/unauth.guards';
 import { HomeComponent } from './screens/home/home.component';
+import { CouponsComponent } from './screens/coupons/coupons.component';
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'coupons',
+    component: CouponsComponent,
     canActivate: [AuthGuard]
   },
   {

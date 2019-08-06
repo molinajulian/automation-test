@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { ModalService } from 'src/app/services/modal.service';
+import { CouponsService } from 'src/app/services/coupons.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 export const MENU_ITEMS = [
   {
@@ -26,12 +29,25 @@ export class NavBarComponent {
   menuItems = MENU_ITEMS;
 
   constructor(
-    private localStorage: LocalStorageService,
-    private router: Router
-  ) { }
+    private authService: AuthenticationService,
+    private router: Router,
+    private modalService: ModalService,
+    private couponsService: CouponsService
+  ) {
+
+  }
 
   onLogout() {
-    this.localStorage.removeValue(this.localStorage.SESSION_TOKEN);
+    this.authService.logout();
     this.router.navigateByUrl('/login');
+  }
+
+  openCouponModal() {
+    this.modalService.open();
+  }
+
+  showFreeCouponButton(): boolean {
+    const userlogger = this.authService.getUser();
+    return !this.couponsService.userHasCoupons(userlogger);
   }
 }

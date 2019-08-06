@@ -6,6 +6,10 @@
   </ul>
   <ul class="nav-bar-account">
     <li class="nav-bar-item">
+      <button id="welcome-coupon" class="button danger coupon-button" (click)="openCouponModal()"
+        *ngIf="showFreeCouponButton()">Obtener cupón de bienvenida</button>
+    </li>
+    <li class="nav-bar-item">
       <a class="nav-bar-link" (click)="onLogout()">Cerrar Sesión</a>
     </li>
   </ul>
