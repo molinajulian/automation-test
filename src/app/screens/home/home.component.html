@@ -1,3 +1,5 @@
+<app-offer-modal #offerModal></app-offer-modal>
+<app-confirmation-modal #confirmationModal></app-confirmation-modal>
 <app-nav-bar></app-nav-bar>
 <div class="home">
   <div class="home-content">
@@ -35,7 +37,7 @@
           <td>{{ offer.local }}</td>
           <td>{{ offer.address }}</td>
           <td class="align-center">
-            <button class="button success offers-table-block-button">Pedir</button>
+            <button class="button success offers-table-block-button" (click)="openOfferModal(offer)">Pedir</button>
           </td>
         </tr>
       </tbody>
