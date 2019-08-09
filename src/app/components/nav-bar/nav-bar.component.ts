@@ -26,6 +26,7 @@ export const MENU_ITEMS = [
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent {
+  userLogged: string;
   menuItems = MENU_ITEMS;
 
   constructor(
@@ -34,7 +35,7 @@ export class NavBarComponent {
     private modalService: ModalService,
     private couponsService: CouponsService
   ) {
-
+    this.userLogged = this.authService.getUser();
   }
 
   onLogout() {
@@ -47,7 +48,6 @@ export class NavBarComponent {
   }
 
   showFreeCouponButton(): boolean {
-    const userlogger = this.authService.getUser();
-    return !this.couponsService.userHasCoupons(userlogger);
+    return !this.couponsService.userHasCoupons(this.userLogged);
   }
 }

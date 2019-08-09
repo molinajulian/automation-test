@@ -29,6 +29,10 @@
     }
   }
 
+  &-item>.username {
+    padding: 20px 15px;
+  }
+
   &-item>&-link {
     padding: 20px 15px;
     text-align: center;

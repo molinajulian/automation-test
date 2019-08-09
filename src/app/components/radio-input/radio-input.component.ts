@@ -2,58 +2,47 @@ import {
   Component,
   OnInit,
   Input,
-  forwardRef,
   Injector,
   AfterViewInit,
-  OnDestroy,
   Optional,
   Host,
+  OnDestroy,
   ChangeDetectorRef,
-  HostListener
+  forwardRef
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl } from '@angular/forms';
-import { Subject, Observable, EMPTY, merge } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Observable, Subject, EMPTY } from 'rxjs';
 import { FormSubmitDirective } from 'src/app/directives/form-submit.directive';
 import { generateRandomString } from 'src/app/utils/string-random-generator';
-
-export const TYPES = {
-  TEXT: 'text',
-};
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-input',
-  templateUrl: './input.component.html',
-  styleUrls: ['./input.component.scss'],
+  selector: 'app-radio-input',
+  templateUrl: './radio-input.component.html',
+  styleUrls: ['./radio-input.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputComponent),
+      useExisting: forwardRef(() => RadioInputComponent),
       multi: true
     }
   ]
 })
-export class InputComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnDestroy {
+export class RadioInputComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnDestroy {
   @Input() label: string;
-  @Input() type = TYPES.TEXT;
   @Input() errorMessage: string;
   @Input() id: string;
-  @Input() showErrorsListener$: Observable<Event> = EMPTY;
-  onChange: () => void;
-  onTouch: () => void;
+  @Input() options: { id: any, name: string }[] = [];
   value: string;
   formControl: NgControl;
+  onChange: () => void;
+  onTouch: () => void;
   showError = false;
   isRequired = false;
   idError: string;
+  radioName: string;
   private unsubscribe$: Subject<any> = new Subject();
-  private focusOut$: Subject<any> = new Subject();
   submit$: Observable<Event>;
-  TYPES = TYPES;
-  @HostListener('focusout', ['$event'])
-  onFocusout(event) {
-    this.focusOut$.next(event);
-  }
 
   constructor(
     private inj: Injector,
@@ -61,18 +50,17 @@ export class InputComponent implements OnInit, ControlValueAccessor, AfterViewIn
     private cdr: ChangeDetectorRef
   ) {
     this.submit$ = this.form ? this.form.submit$ : EMPTY;
+    this.radioName = generateRandomString(5);
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.formControl = this.inj.get(NgControl);
+    this.resolveIDs();
   }
 
   ngAfterViewInit() {
-    merge(
-      this.submit$,
-      this.focusOut$,
-      this.showErrorsListener$
-    ).pipe(
+    this.id = this.id || generateRandomString(10);
+    this.submit$.pipe(
       takeUntil(this.unsubscribe$)
     ).subscribe(() => {
       const controlErrors = this.formControl.control.errors;
@@ -86,11 +74,9 @@ export class InputComponent implements OnInit, ControlValueAccessor, AfterViewIn
       this.isRequired = !!validators.required;
     }
     this.cdr.detectChanges();
-    this.resolveIDs();
   }
 
   resolveIDs() {
-    this.id = this.id || generateRandomString(5);
     this.idError = `e-${this.id}`;
   }
 
