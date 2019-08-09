@@ -11,25 +11,34 @@
     padding-top: 50px;
 
     .profile-form {
+      align-items: center;
       background-color: $white;
+      display: flex;
+      flex-direction: column;
       padding: 40px 50px;
       min-width: 1200px;
 
-      .profile-form-fields {
+      &-fields {
         display: grid;
         grid-gap: 20px 40px;
         grid-template-columns: auto auto;
         margin-bottom: 40px;
+        width: 100%;
       }
 
-      .profile-form-buttons {
+      &-buttons {
         display: flex;
         justify-content: space-around;
+        width: 100%;
 
         .profile-button {
           justify-self: center;
           width: 220px;
         }
+      }
+
+      #image {
+        margin-bottom: 40px;
       }
     }
   }
