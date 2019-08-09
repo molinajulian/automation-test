@@ -17,6 +17,9 @@ import { DateInputComponent } from './components/date-input/date-input.component
 import { SelectComponent } from './components/select/select.component';
 import { RadioInputComponent } from './components/radio-input/radio-input.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { OfferModalComponent } from './components/offer-modal/offer-modal.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
     DateInputComponent,
     SelectComponent,
     RadioInputComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    OfferModalComponent,
+    SpinnerComponent,
+    ConfirmationModalComponent
   ],
   imports: [
     BrowserModule,
