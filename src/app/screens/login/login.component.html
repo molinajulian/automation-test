@@ -3,13 +3,13 @@
     <h1 class="login-box-title">Bienvenido</h1>
   </div>
   <form class="login-box-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off">
-    <app-input id="username" class="login-box-form-input" label="Usuario" formControlName="username"
+    <app-input id="username" class="login-box-form-input" label="Usuario" formControlName="username" data-cy="loggin-user"
       [errorMessage]="getErrorMessage('username')">
     </app-input>
-    <app-input id="password" class="login-box-form-input" label="Contraseña" formControlName="password"
+    <app-input id="password" class="login-box-form-input" label="Contraseña" formControlName="password" data-cy="loggin-pass"
       [errorMessage]="getErrorMessage('password')" type="password">
     </app-input>
     <button id="button-login" type="submit" class="button success block login-box-form-submit"
-      [disabled]="validateSubmitDisabled()">Ingresar</button>
+      [disabled]="validateSubmitDisabled()" data-cy="loggin-submit">Ingresar</button>
   </form>
 </div>
