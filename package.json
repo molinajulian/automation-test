@@ -4,11 +4,15 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
     "test": "ng test",
+    "build": "ng build",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "cypress": "node_modules/.bin/cypress open"
+    "cypress": "node_modules/.bin/cypress",
+    "cy:run": "cypress run",
+    "cy:test": "npm start & node_modules/.bin/cypress run --record --key c133697e-fec5-4eaf-b7d2-e41ebfd255fb",
+    "precommit": "npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI"
+
   },
   "private": true,
   "dependencies": {
@@ -46,6 +50,7 @@
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
     "protractor": "~5.4.0",
+    "start-server-and-test": "^1.10.2",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.4.3"
