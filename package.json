@@ -11,7 +11,7 @@
     "cypress": "node_modules/.bin/cypress",
     "cy:run": "cypress run",
     "cy:record": "cypress run --record --key c133697e-fec5-4eaf-b7d2-e41ebfd255fb",
-    "cy:test": "start-server-and-test start http-get://localhost:4200 cy:record"
+    "cy:test": "start-server-and-test start http-get://localhost:4200 cy:run"
   },
   "private": true,
   "dependencies": {
