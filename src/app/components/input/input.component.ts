@@ -39,7 +39,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, AfterViewIn
   @Input() errorMessage: string;
   @Input() id: string;
   @Input() showErrorsListener$: Observable<Event> = EMPTY;
-  onChange: () => void;
+  onChange: (fn) => void;
   onTouch: () => void;
   value: string;
   formControl: NgControl;
