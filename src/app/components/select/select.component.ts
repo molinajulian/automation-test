@@ -36,7 +36,7 @@ export class SelectComponent implements OnInit, ControlValueAccessor, AfterViewI
   @Input() options: { id: any, name: string }[] = [];
   value: string;
   formControl: NgControl;
-  onChange: () => void;
+  onChange: (fn) => void;
   onTouch: () => void;
   showError = false;
   isRequired = false;
