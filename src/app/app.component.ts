@@ -7,7 +7,7 @@ import { SpinnerService } from './services/spinner.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'automation-test';
+  title = 'Wappi';
   showLoading: boolean;
 
   constructor(private spinnerService: SpinnerService) { }
