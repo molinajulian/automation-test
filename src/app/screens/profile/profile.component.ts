@@ -80,7 +80,9 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    this.router.navigate(['home']);
+    if (this.form.valid) {
+      this.router.navigate(['home']);
+    }
   }
 
   onCancel() {
