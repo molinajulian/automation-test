@@ -35,7 +35,6 @@ export class OfferModalComponent {
 
   confirmOder() {
     this.opened = false;
-    this.couponsService.removeFreeCouponList(this.couponControl.value);
     this.confirmOrder.next({ confirm: true, coupon: this.couponControl.value });
   }
 

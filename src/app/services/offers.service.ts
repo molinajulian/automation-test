@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { OFFERS } from 'src/app/mocks/offers.mock';
 import { Observable, of } from 'rxjs';
 import { Offer } from '../models/offer.model';
+import { GetOffersResponse } from '../models/getOfferResponse.model';
 
 export const SORT_BY = {
   DATE: 'date',
@@ -13,16 +14,6 @@ export const SORT_TYPE = {
   ASC: 'ASC',
   DESC: 'DESC'
 };
-
-export interface GetOffersReponse {
-  offers: Offer[];
-  pagination: {
-    sortBy: string;
-    sortType: string;
-    total: number;
-  };
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -35,11 +26,11 @@ export class OffersService {
     this.offers = OFFERS;
   }
 
-  getOffers(sortBy?: string): Observable<GetOffersReponse> {
+  getOffers(sortBy?: string): Observable<GetOffersResponse> {
     if (sortBy) {
       this.sortOffer(sortBy);
     }
-    const response: GetOffersReponse = {
+    const response: GetOffersResponse = {
       offers: this.offers,
       pagination: {
         sortBy: this.sortedBy,

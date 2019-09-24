@@ -5,8 +5,7 @@ import { LocalStorageService } from './local-storage.service';
   providedIn: 'root'
 })
 export class AuthenticationService {
-
-  constructor(private localStorageService: LocalStorageService) { }
+  constructor(private localStorageService: LocalStorageService) {}
 
   getToken() {
     return this.localStorageService.getValue(this.localStorageService.SESSION_TOKEN);
@@ -21,6 +20,7 @@ export class AuthenticationService {
   }
 
   logout() {
+    this.localStorageService.clearStorage();
     this.localStorageService.removeValue(this.localStorageService.SESSION_TOKEN);
   }
 }

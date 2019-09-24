@@ -5,6 +5,7 @@ import { OfferModalComponent } from 'src/app/components/offer-modal/offer-modal.
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { ConfirmationModalComponent } from 'src/app/components/confirmation-modal/confirmation-modal.component';
 import { OrderConfirmation } from 'src/app/models/order.model';
+import { CouponsService } from 'src/app/services/coupons.service';
 
 @Component({
   selector: 'app-home',
@@ -18,10 +19,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
   sortedBy: string;
   sortedType: string;
   customConfirmationModalText: string;
+
   @ViewChild('offerModal', { static: false }) private offerModal: OfferModalComponent;
   @ViewChild('confirmationModal', { static: false }) private confirmationModal: ConfirmationModalComponent;
 
-  constructor(private offersService: OffersService, private loadingService: SpinnerService) {}
+  constructor(
+    private offersService: OffersService,
+    private loadingService: SpinnerService,
+    private couponsService: CouponsService
+  ) {}
 
   ngOnInit() {
     this.updateOffers();
@@ -33,12 +39,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.loadingService.showLoading(true);
         setTimeout(() => {
           this.loadingService.showLoading(false);
+          const validCoupon = this.couponsService.hasValidCoupon(couponConfirmation.coupon);
           const defaultSuccessMessage =
-            'Tu pedido ha sido confirmado, te mantendremos informado ante nuevas novedades';
-          this.customConfirmationModalText =
-            (couponConfirmation.coupon &&
-              `El cupón ${couponConfirmation.coupon} ha sido utilizado con éxito. ${defaultSuccessMessage}`) ||
-            defaultSuccessMessage;
+            'Tu pedido ha sido confirmado, te mantendremos informado ante nuevas novedades.';
+          if (couponConfirmation.coupon && !validCoupon) {
+            this.customConfirmationModalText = `El cupón ${couponConfirmation.coupon} no es un cupón válido.`;
+          } else {
+            this.customConfirmationModalText =
+              (couponConfirmation.coupon &&
+                `El cupón ${couponConfirmation.coupon} ha sido utilizado con éxito. ${defaultSuccessMessage}`) ||
+              defaultSuccessMessage;
+          }
+          this.couponsService.removeFreeCouponList(couponConfirmation.coupon);
           this.confirmationModal.open();
         }, 2000);
       }

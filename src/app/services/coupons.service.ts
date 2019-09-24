@@ -7,6 +7,7 @@ import { LocalStorageService } from './local-storage.service';
 export class CouponsService {
   constructor(private localStorage: LocalStorageService) {}
   freeCouponList = [];
+  hasWelcomeCoupon = false;
   registerFreeCoupon(coupon: string, user: string): void {
     const freeCouponKey = this.localStorage.FREE_COUPON;
     this.freeCouponList = this.getFreeCouponsList();
@@ -25,13 +26,17 @@ export class CouponsService {
 
   removeFreeCouponList(coupon: String): void {
     this.freeCouponList = this.freeCouponList.filter(({ code }) => code !== coupon);
-    this.localStorage.removeValue(this.localStorage.FREE_COUPON);
+  }
+
+  hasValidCoupon(coupon: String): Boolean {
+    const freeCouponList = this.getFreeCouponsList();
+    return freeCouponList.some(({ code }) => code === coupon);
   }
 
   getUserCoupons(user: string): any[] {
-    const freeCouponList = this.getFreeCouponsList() || [];
+    console.log(this.freeCouponList);
     const coupons = [];
-    freeCouponList.forEach(element => {
+    this.freeCouponList.forEach(element => {
       if (user === element.username) {
         coupons.push(element);
       }
