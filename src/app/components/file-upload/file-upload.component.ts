@@ -1,6 +1,18 @@
-import { Component, OnInit, Input, HostListener, ElementRef, AfterViewInit, Optional, Host, OnDestroy, Injector, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  HostListener,
+  ElementRef,
+  AfterViewInit,
+  Optional,
+  Host,
+  OnDestroy,
+  Injector,
+  ViewChild
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl } from '@angular/forms';
-import { generateRandomString } from 'src/app/utils/string-random-generator';
+import { Chance } from 'src/app/services/chance.service';
 import { Subject, Observable, EMPTY } from 'rxjs';
 import { FormSubmitDirective } from 'src/app/directives/form-submit.directive';
 import { takeUntil } from 'rxjs/operators';
@@ -28,6 +40,7 @@ export class FileUploadComponent implements ControlValueAccessor, AfterViewInit,
   showError = false;
   private unsubscribe$: Subject<any> = new Subject();
   submit$: Observable<Event>;
+  chance = new Chance();
   @ViewChild('previewImg', { static: false }) previewImg: ElementRef;
   @ViewChild('inputFile', { static: false }) inputFile: ElementRef;
   @HostListener('change', ['$event.target.files']) emitFiles(files: FileList) {
@@ -70,7 +83,7 @@ export class FileUploadComponent implements ControlValueAccessor, AfterViewInit,
   }
 
   resolveIDs(): void {
-    this.id = this.id || generateRandomString(5);
+    this.id = this.id || this.chance.getRandomString({ length: 5 });
     this.idError = `e-${this.id}`;
   }
 
@@ -83,7 +96,7 @@ export class FileUploadComponent implements ControlValueAccessor, AfterViewInit,
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: Function) { }
+  registerOnTouched(fn: Function) {}
 
   resetFileInput() {
     this.previewImg.nativeElement.src = 'assets/image.png';

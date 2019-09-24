@@ -15,10 +15,10 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl } from '@angular/for
 import { Subject, Observable, EMPTY, merge } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FormSubmitDirective } from 'src/app/directives/form-submit.directive';
-import { generateRandomString } from 'src/app/utils/string-random-generator';
+import { Chance } from 'src/app/services/chance.service';
 
 export const TYPES = {
-  TEXT: 'text',
+  TEXT: 'text'
 };
 
 @Component({
@@ -46,6 +46,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, AfterViewIn
   showError = false;
   isRequired = false;
   idError: string;
+  chance = new Chance();
   private unsubscribe$: Subject<any> = new Subject();
   private focusOut$: Subject<any> = new Subject();
   submit$: Observable<Event>;
@@ -68,19 +69,15 @@ export class InputComponent implements OnInit, ControlValueAccessor, AfterViewIn
   }
 
   ngAfterViewInit() {
-    merge(
-      this.submit$,
-      this.focusOut$,
-      this.showErrorsListener$
-    ).pipe(
-      takeUntil(this.unsubscribe$)
-    ).subscribe(() => {
-      const controlErrors = this.formControl.control.errors;
-      this.showError = false;
-      if (controlErrors) {
-        this.showError = true;
-      }
-    });
+    merge(this.submit$, this.focusOut$, this.showErrorsListener$)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => {
+        const controlErrors = this.formControl.control.errors;
+        this.showError = false;
+        if (controlErrors) {
+          this.showError = true;
+        }
+      });
     if (this.formControl.control.validator) {
       const validators = this.formControl.control.validator(this.formControl.control);
       this.isRequired = !!validators.required;
@@ -90,7 +87,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, AfterViewIn
   }
 
   resolveIDs() {
-    this.id = this.id || generateRandomString(5);
+    this.id = this.id || this.chance.getRandomString({ length: 5 });
     this.idError = `e-${this.id}`;
   }
 

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Offer, OFFERS } from 'src/app/mocks/offers.mock';
+import { OFFERS } from 'src/app/mocks/offers.mock';
 import { Observable, of } from 'rxjs';
+import { Offer } from '../models/offer.model';
 
 export const SORT_BY = {
   DATE: 'date',

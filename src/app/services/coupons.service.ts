@@ -5,23 +5,27 @@ import { LocalStorageService } from './local-storage.service';
   providedIn: 'root'
 })
 export class CouponsService {
-
-  constructor(private localStorage: LocalStorageService) { }
-
+  constructor(private localStorage: LocalStorageService) {}
+  freeCouponList = [];
   registerFreeCoupon(coupon: string, user: string): void {
     const freeCouponKey = this.localStorage.FREE_COUPON;
-    const freeCouponList = this.getFreeCouponsList() || [];
-    freeCouponList.push({
+    this.freeCouponList = this.getFreeCouponsList();
+    this.freeCouponList.push({
       username: user,
       code: coupon,
       date: '2019-12-31',
       description: 'Cupón de Bienvenida'
     });
-    this.localStorage.setValue(freeCouponKey, freeCouponList);
+    this.localStorage.setValue(freeCouponKey, this.freeCouponList);
   }
 
   private getFreeCouponsList() {
-    return this.localStorage.getValue(this.localStorage.FREE_COUPON);
+    return this.localStorage.getValue(this.localStorage.FREE_COUPON) || [];
+  }
+
+  removeFreeCouponList(coupon: String): void {
+    this.freeCouponList = this.freeCouponList.filter(({ code }) => code !== coupon);
+    this.localStorage.removeValue(this.localStorage.FREE_COUPON);
   }
 
   getUserCoupons(user: string): any[] {

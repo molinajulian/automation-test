@@ -1,8 +1,8 @@
-import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ModalService } from 'src/app/services/modal.service';
-import { generateRandomString } from 'src/app/utils/string-random-generator';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { CouponsService } from 'src/app/services/coupons.service';
+import { Chance } from 'src/app/services/chance.service';
 
 @Component({
   selector: 'app-coupon-modal',
@@ -12,7 +12,7 @@ import { CouponsService } from 'src/app/services/coupons.service';
 export class CouponModalComponent implements OnInit {
   opened = false;
   couponCode: string;
-
+  chance = new Chance();
   @HostListener('click', ['$event']) onClick(event) {
     if (event.target.id === 'coupon-modal') {
       this.close();
@@ -23,12 +23,12 @@ export class CouponModalComponent implements OnInit {
     private modalService: ModalService,
     private authService: AuthenticationService,
     private couponsService: CouponsService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.modalService.modalStatusChange.subscribe(value => {
       if (value) {
-        this.couponCode = generateRandomString(15);
+        this.couponCode = this.chance.getRandomString({ length: 15 });
         const userlogger = this.authService.getUser();
         this.couponsService.registerFreeCoupon(this.couponCode, userlogger);
       }

@@ -13,7 +13,7 @@ import {
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, Subject, EMPTY } from 'rxjs';
 import { FormSubmitDirective } from 'src/app/directives/form-submit.directive';
-import { generateRandomString } from 'src/app/utils/string-random-generator';
+import { Chance } from 'src/app/services/chance.service';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -32,7 +32,7 @@ export class RadioInputComponent implements OnInit, ControlValueAccessor, AfterV
   @Input() label: string;
   @Input() errorMessage: string;
   @Input() id: string;
-  @Input() options: { id: any, name: string }[] = [];
+  @Input() options: { id: any; name: string }[] = [];
   value: string;
   formControl: NgControl;
   onChange: () => void;
@@ -41,6 +41,7 @@ export class RadioInputComponent implements OnInit, ControlValueAccessor, AfterV
   isRequired = false;
   idError: string;
   radioName: string;
+  chance = new Chance();
   private unsubscribe$: Subject<any> = new Subject();
   submit$: Observable<Event>;
 
@@ -50,7 +51,7 @@ export class RadioInputComponent implements OnInit, ControlValueAccessor, AfterV
     private cdr: ChangeDetectorRef
   ) {
     this.submit$ = this.form ? this.form.submit$ : EMPTY;
-    this.radioName = generateRandomString(5);
+    this.radioName = this.chance.getRandomString({ length: 5 });
   }
 
   ngOnInit() {
@@ -59,10 +60,8 @@ export class RadioInputComponent implements OnInit, ControlValueAccessor, AfterV
   }
 
   ngAfterViewInit() {
-    this.id = this.id || generateRandomString(10);
-    this.submit$.pipe(
-      takeUntil(this.unsubscribe$)
-    ).subscribe(() => {
+    this.id = this.id || this.chance.getRandomString({ length: 10 });
+    this.submit$.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
       const controlErrors = this.formControl.control.errors;
       this.showError = false;
       if (controlErrors) {

@@ -1,12 +1,4 @@
-export interface Offer {
-  readonly id: string;
-  date: string;
-  price: number;
-  description: string;
-  shipping_cost: number;
-  local: string;
-  address: string;
-}
+import { Offer } from '../models/offer.model';
 
 export const OFFERS: Offer[] = [
   {
@@ -17,7 +9,8 @@ export const OFFERS: Offer[] = [
     shipping_cost: 2000,
     local: 'Premier',
     address: 'Tr. 13 #12-34'
-  }, {
+  },
+  {
     id: 'Sfdu',
     date: '2019-11-31',
     price: 3500,
@@ -25,7 +18,8 @@ export const OFFERS: Offer[] = [
     shipping_cost: 500,
     local: 'La Panadería',
     address: 'Tr. 13 #12-34'
-  }, {
+  },
+  {
     id: 'SDcv',
     date: '2019-10-10',
     price: 14000,

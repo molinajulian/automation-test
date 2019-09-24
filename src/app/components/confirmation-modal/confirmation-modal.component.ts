@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-confirmation-modal',
@@ -6,9 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./confirmation-modal.component.scss']
 })
 export class ConfirmationModalComponent {
+  @Input() customText = 'Tu pedido ha sido confirmado, te mantendremos informado ante nuevas novedades';
   public opened = false;
 
-  constructor() { }
+  constructor() {}
 
   open() {
     this.opened = true;

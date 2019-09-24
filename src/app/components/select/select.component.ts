@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject, merge, Observable, EMPTY } from 'rxjs';
-import { generateRandomString } from 'src/app/utils/string-random-generator';
+import { Chance } from 'src/app/services/chance.service';
 import { FormSubmitDirective } from 'src/app/directives/form-submit.directive';
 import { takeUntil } from 'rxjs/operators';
 
@@ -33,7 +33,7 @@ export class SelectComponent implements OnInit, ControlValueAccessor, AfterViewI
   @Input() label: string;
   @Input() errorMessage: string;
   @Input() id: string;
-  @Input() options: { id: any, name: string }[] = [];
+  @Input() options: { id: any; name: string }[] = [];
   value: string;
   formControl: NgControl;
   onChange: (fn) => void;
@@ -41,6 +41,7 @@ export class SelectComponent implements OnInit, ControlValueAccessor, AfterViewI
   showError = false;
   isRequired = false;
   idError: string;
+  chance = new Chance();
   private unsubscribe$: Subject<any> = new Subject();
   private focusOut$: Subject<any> = new Subject();
   submit$: Observable<Event>;
@@ -63,19 +64,16 @@ export class SelectComponent implements OnInit, ControlValueAccessor, AfterViewI
   }
 
   ngAfterViewInit() {
-    this.id = this.id || generateRandomString(5);
-    merge(
-      this.submit$,
-      this.focusOut$
-    ).pipe(
-      takeUntil(this.unsubscribe$)
-    ).subscribe(() => {
-      const controlErrors = this.formControl.control.errors;
-      this.showError = false;
-      if (controlErrors) {
-        this.showError = true;
-      }
-    });
+    this.id = this.id || this.chance.getRandomString({ length: 5 });
+    merge(this.submit$, this.focusOut$)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => {
+        const controlErrors = this.formControl.control.errors;
+        this.showError = false;
+        if (controlErrors) {
+          this.showError = true;
+        }
+      });
     if (this.formControl.control.validator) {
       const validators = this.formControl.control.validator(this.formControl.control);
       this.isRequired = !!validators.required;

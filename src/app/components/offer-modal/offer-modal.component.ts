@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { Offer } from 'src/app/mocks/offers.mock';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
+import { CouponsService } from '../../services/coupons.service';
+import { OrderConfirmation } from '../../models/order.model';
+import { Offer } from '../../models/offer.model';
 
 @Component({
   selector: 'app-offer-modal',
@@ -12,10 +14,10 @@ export class OfferModalComponent {
   opened = false;
   offer: Offer;
   couponControl: FormControl;
-  private confirmOrder = new BehaviorSubject<boolean>(false);
+  private confirmOrder = new BehaviorSubject<OrderConfirmation>({ confirm: false, coupon: '' });
   confirmOrderEvent = this.confirmOrder.asObservable();
 
-  constructor() {
+  constructor(private couponsService: CouponsService) {
     this.resetOffer();
     this.couponControl = new FormControl();
   }
@@ -23,6 +25,7 @@ export class OfferModalComponent {
   open(offer: Offer) {
     this.offer = offer;
     this.opened = true;
+    this.couponControl.setValue('');
   }
 
   close() {
@@ -32,7 +35,8 @@ export class OfferModalComponent {
 
   confirmOder() {
     this.opened = false;
-    this.confirmOrder.next(true);
+    this.couponsService.removeFreeCouponList(this.couponControl.value);
+    this.confirmOrder.next({ confirm: true, coupon: this.couponControl.value });
   }
 
   resetOffer() {
