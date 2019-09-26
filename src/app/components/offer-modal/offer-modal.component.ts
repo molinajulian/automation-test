@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { CouponsService } from '../../services/coupons.service';
 import { OrderConfirmation } from '../../models/order.model';
 import { Offer } from '../../models/offer.model';
+import { Chance } from '../../services/chance.service';
 
 @Component({
   selector: 'app-offer-modal',
@@ -14,6 +15,8 @@ export class OfferModalComponent {
   opened = false;
   offer: Offer;
   couponControl: FormControl;
+  chance = new Chance();
+  shipping_cost: number;
   private confirmOrder = new BehaviorSubject<OrderConfirmation>({ confirm: false, coupon: '' });
   confirmOrderEvent = this.confirmOrder.asObservable();
 
@@ -24,6 +27,7 @@ export class OfferModalComponent {
 
   open(offer: Offer) {
     this.offer = offer;
+    this.shipping_cost = this.chance.getRandomInt({ min: 500, max: 5000 });
     this.opened = true;
     this.couponControl.setValue('');
   }

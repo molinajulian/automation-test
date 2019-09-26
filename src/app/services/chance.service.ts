@@ -11,4 +11,8 @@ export class Chance {
   getRandomString(options: any) {
     return this.chance.string(options);
   }
+
+  getRandomInt(options: any) {
+    return this.chance.integer(options);
+  }
 }
